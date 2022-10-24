@@ -1,5 +1,5 @@
 {
-	"ignorePatterns": ["node_modules", "public", "vite.config.ts"],
+	"ignorePatterns": ["node_modules", "public", "*.config.js", "*.config.ts"],
 	"env": {
 		"node": true,
 		"browser": true,
@@ -22,6 +22,7 @@
 		"prettier"
 	],
 	"rules": {
+		"import/no-unresolved": 0
 		// "@typescript-eslint/no-explicit-any": 0,
 		// "react/react-in-jsx-scope": 0,
 		// "react-hooks/exhaustive-deps": 0,

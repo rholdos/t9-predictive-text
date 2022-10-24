@@ -10,8 +10,10 @@ app.use(express_1.default.json());
 app.get('/', (req, res) => {
     res.status(200).send('Express server');
 });
-app.get('/api', (req, res) => {
-    res.json({ message: 'Hello from server API' });
+app.post('/convert', (req, res) => {
+    res.status(200).send({
+        message: 'POST request /convert'
+    });
 });
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);

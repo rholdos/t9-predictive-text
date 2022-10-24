@@ -11,7 +11,7 @@
 	"bracketSameLine": false,
 	"quoteProps": "consistent",
 	"arrowParens": "always",
-	"singleAttributePerLine": true,
+	"singleAttributePerLine": false,
 	"requirePragma": false,
 	"insertPragma": false,
 	"embeddedLanguageFormatting": "auto",

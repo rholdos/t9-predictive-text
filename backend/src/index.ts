@@ -10,8 +10,10 @@ app.get('/', (req: Request, res: Response) => {
 	res.status(200).send('Express server')
 })
 
-app.get('/api', (req: Request, res: Response) => {
-	res.json({ message: 'Hello from server API' })
+app.post('/convert', (req: Request, res: Response) => {
+	res.status(200).send({
+		message: 'POST request /convert'
+	})
 })
 
 app.listen(PORT, () => {
