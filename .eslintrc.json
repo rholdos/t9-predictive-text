@@ -1,0 +1,30 @@
+{
+	"ignorePatterns": ["node_modules", "public", "vite.config.ts"],
+	"env": {
+		"node": true,
+		"browser": true,
+		"es2021": true
+	},
+	"plugins": ["@typescript-eslint", "react", "react-hooks", "jsx-a11y"],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"project": ["./tsconfig.json"]
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:import/recommended",
+		"plugin:import/typescript",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:react/recommended",
+		"plugin:react/jsx-runtime",
+		"plugin:react-hooks/recommended",
+		"plugin:jsx-a11y/recommended",
+		"prettier"
+	],
+	"rules": {
+		// "@typescript-eslint/no-explicit-any": 0,
+		// "react/react-in-jsx-scope": 0,
+		// "react-hooks/exhaustive-deps": 0,
+		// "jsx-a11y/anchor-is-valid": 0
+	}
+}

@@ -1,0 +1,31 @@
+{
+  "name": "ts-node-react-vite-starter",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": "^16.17.1",
+    "npm": "^8.19.2"
+  },
+  "scripts": {
+    "start:backend": "npm run --prefix backend start",
+    "start:frontend": "npm run --prefix frontend start",
+    "start": "npm run start:backend & npm run start:frontend"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "5.40.1",
+    "@typescript-eslint/parser": "5.40.1",
+    "eslint": "8.25.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-jsx-a11y": "6.6.1",
+    "eslint-plugin-react": "7.31.10",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "prettier": "2.7.1",
+    "typescript": "4.8.4"
+  },
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
