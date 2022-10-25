@@ -1,21 +1,32 @@
-import cn from 'classnames'
+import { useEffect, useRef } from 'react'
 
 interface ISuggestions {
-	className?: string
 	words: string[]
+	onAcceptWord: (value: string) => void
 }
 
-const Suggestions = ({ className, words }: ISuggestions) => {
+const Suggestions = ({ words, onAcceptWord }: ISuggestions) => {
+	const firstSuggestionButton = useRef<HTMLButtonElement>(null)
+
+	const handleClick = (word: string) => {
+		onAcceptWord(word)
+	}
+
+	/* TODO: Check if works - Focus button with first suggestion whenever words changes */
+	useEffect(() => {
+		firstSuggestionButton.current?.focus()
+	}, [words])
+
 	return (
-		<div className={cn(className, 'text-gray-900 bg-gray-200 rounded-xl')}>
+		<div className={'text-gray-900 bg-gray-200 rounded-xl'}>
 			<div className={'grid grid-rows-1 grid-cols-3'}>
 				{words.slice(0, 3).map((word, index) => (
 					<button
-						autoFocus={index === 0}
 						key={`suggestions-main-word-${index}`}
 						type='button'
-						onClick={() => console.log('TODO: accept suggestion')}
+						onClick={() => handleClick(word)}
 						className='text-center text-lg border-x-[1px] border-gray-300 first:border-l-0 last:border-r-0 p-2'
+						ref={index === 0 ? firstSuggestionButton : undefined}
 					>
 						{word}
 					</button>
@@ -26,7 +37,7 @@ const Suggestions = ({ className, words }: ISuggestions) => {
 					<button
 						key={`suggestions-other-word-${index}`}
 						type='button'
-						onClick={() => console.log('TODO: accept suggestion')}
+						onClick={() => handleClick(word)}
 						className='text-center text-sm border-x-[1px] border-gray-300 first:border-l-0 last:border-r-0 p-2'
 					>
 						{word}

@@ -22,7 +22,6 @@
 		"prettier"
 	],
 	"rules": {
-		"import/no-unresolved": 1,
-		"jsx-a11y/no-autofocus": 0
+		"import/no-unresolved": 1
 	}
 }

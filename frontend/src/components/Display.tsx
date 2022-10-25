@@ -1,14 +1,23 @@
-import cn from 'classnames'
-
 interface IDisplay {
-	className?: string
+	input: string
+	output: string
 }
 
-const Display = ({ className }: IDisplay) => {
+const Display = ({ input, output }: IDisplay) => {
 	return (
 		<>
-			<textarea className={cn(className, 'text-gray-900 bg-gray-200 p-2 rounded-lg')} rows={1} value='85634875' readOnly />
-			<textarea className={cn(className, 'text-gray-900 bg-gray-200 p-2 rounded-lg')} rows={3} value='Display' readOnly />
+			<textarea
+				className={'text-gray-900 bg-gray-200 p-2 rounded-lg resize-none'}
+				value={input}
+				rows={1}
+				readOnly
+			/>
+			<textarea
+				className={'text-gray-900 bg-gray-200 p-2 rounded-lg resize-none'}
+				value={output}
+				rows={5}
+				readOnly
+			/>
 		</>
 	)
 }
