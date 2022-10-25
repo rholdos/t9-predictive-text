@@ -2,6 +2,7 @@ import Display from 'components/Display'
 import Header from 'components/Header'
 import Keypad from 'components/Keypad'
 import Legend from 'components/Legend'
+import Phone from 'components/Phone'
 import Suggestions from 'components/Suggestions'
 import { useState } from 'react'
 
@@ -22,15 +23,19 @@ const App = () => {
 
 	return (
 		<>
-			<Header className='text-xl p-4 mb-40' />
-			<main className='w-6/12 flex flex-col flex-nowrap justify-center gap-4 mx-auto'>
-				<Display input={input} output={output} />
-				<Suggestions words={suggestedWords} onAcceptWord={handleAcceptWord} />
-				<Keypad input={input} onInputChange={handleInputChange} />
-			</main>
-			<aside>
+			<Header />
+			<main className='max-w-[1200px] flex flex-row flex-nowrap justify-evenly items-center gap-8 mx-auto'>
 				<Legend />
-			</aside>
+				<Phone
+					content={<Display input={input} output={output} />}
+					keyboard={
+						<>
+							<Suggestions words={suggestedWords} onAcceptWord={handleAcceptWord} />
+							<Keypad input={input} onInputChange={handleInputChange} />
+						</>
+					}
+				/>
+			</main>
 		</>
 	)
 }
