@@ -22,10 +22,7 @@
 		"prettier"
 	],
 	"rules": {
-		"import/no-unresolved": 0
-		// "@typescript-eslint/no-explicit-any": 0,
-		// "react/react-in-jsx-scope": 0,
-		// "react-hooks/exhaustive-deps": 0,
-		// "jsx-a11y/anchor-is-valid": 0
+		"import/no-unresolved": 1,
+		"jsx-a11y/no-autofocus": 0
 	}
 }

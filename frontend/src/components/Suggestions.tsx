@@ -7,19 +7,34 @@ interface ISuggestions {
 
 const Suggestions = ({ className, words }: ISuggestions) => {
 	return (
-		<div className={cn(className, 'grid grid-rows-1 grid-cols-3 bg-gray-200 p-2 rounded-lg')}>
-			{words.map((word, index) => (
-				<span
-					key={`suggestions-word-${index}`}
-					className='text-center text-lg border-x-[1px] border-x-gray-300 first:border-l-0 last:border-r-0 py-1 px-2'
-				>
-					{word}
-				</span>
-			))}
+		<div className={cn(className, 'text-gray-900 bg-gray-200 rounded-xl')}>
+			<div className={'grid grid-rows-1 grid-cols-3'}>
+				{words.slice(0, 3).map((word, index) => (
+					<button
+						autoFocus={index === 0}
+						key={`suggestions-main-word-${index}`}
+						type='button'
+						onClick={() => console.log('TODO: accept suggestion')}
+						className='text-center text-lg border-x-[1px] border-gray-300 first:border-l-0 last:border-r-0 p-2'
+					>
+						{word}
+					</button>
+				))}
+			</div>
+			<div className={'grid grid-rows-1 grid-cols-5 border-t-[2px] border-gray-300'}>
+				{words.slice(3).map((word, index) => (
+					<button
+						key={`suggestions-other-word-${index}`}
+						type='button'
+						onClick={() => console.log('TODO: accept suggestion')}
+						className='text-center text-sm border-x-[1px] border-gray-300 first:border-l-0 last:border-r-0 p-2'
+					>
+						{word}
+					</button>
+				))}
+			</div>
 		</div>
 	)
 }
 
 export default Suggestions
-
-// className='w-28 flex flex-row flex-nowrap justify-center items-end gap-2 text-gray-100 bg-gray-900 p-4 rounded-xl'
