@@ -61,8 +61,8 @@ const Keypad = ({ input, onInputChange }: IKeypad) => {
 						{ 'transition-colors hover:bg-gray-600 focus:bg-gray-600 focus:outline-none': !disabled }
 					)}
 				>
-					{digit && <span className='text-xl leading-none pointer-events-none'>{digit}</span>}
-					{text && <span className='text-sm leading-none pointer-events-none'>{text}</span>}
+					{digit && <span className='text-2xl leading-none pointer-events-none'>{digit}</span>}
+					{text && <span className='text-md leading-none pointer-events-none'>{text}</span>}
 				</button>
 			))}
 		</div>

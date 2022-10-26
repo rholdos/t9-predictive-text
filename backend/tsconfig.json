@@ -1,6 +1,6 @@
 {
 	"include": ["src"],
-	"exclude": ["node_modules", "public"],
+	"exclude": ["node_modules"],
 	"compilerOptions": {
 		"target": "ES2021",
 		"lib": ["ES2021"],
@@ -15,11 +15,12 @@
 		"outDir": "./public",
 		"sourceMap": true,
 
-		"strict": true
+		"strict": true,
 
-		// "baseUrl": ".",
-		// "paths": {
-		// 	"@lib/*": ["lib/*"]
-		// }
+		"baseUrl": "./src",
+		"paths": {
+			"assets/*": ["assets/*"],
+			"lib/*": ["lib/*"]
+		}
 	}
 }

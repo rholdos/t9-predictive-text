@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* TODO: remove */
+* {
+	animation-delay: 1ms !important;
+	animation-duration: 1ms !important;
+}
+
 html {
 	font-family: 'DM Sans';
 }

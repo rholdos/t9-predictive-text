@@ -4,6 +4,7 @@ import Keypad from 'components/Keypad'
 import Legend from 'components/Legend'
 import Phone from 'components/Phone'
 import Suggestions from 'components/Suggestions'
+import axios from 'lib/axios'
 import { useEffect, useState } from 'react'
 
 const App = () => {
@@ -24,6 +25,15 @@ const App = () => {
 	const handleAcceptWord = (value: string) => {
 		setOutput(output.length === 0 ? value : `${output} ${value}`)
 	}
+
+	const fetchT9Output = async (input: string) => {
+		const { data } = await axios.post('/', { input: input })
+		setOutput(data.output)
+	}
+
+	useEffect(() => {
+		fetchT9Output(input)
+	}, [input])
 
 	useEffect(() => {
 		setSuggestions(['den', 'debora', 'debounce', 'deno', 'dinosaur', 'doggo', 'doberman', 'doberman', 'doberman', 'doberman'])

@@ -1,5 +1,5 @@
 {
-	"ignorePatterns": ["node_modules", "public", "*.config.js", "*.config.ts"],
+	"ignorePatterns": ["node_modules", "public", "*.config.js", "*.config.ts", "nodemon.json"],
 	"env": {
 		"node": true,
 		"browser": true,

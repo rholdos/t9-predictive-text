@@ -12,7 +12,7 @@ const Legend = () => {
 			<button
 				type='button'
 				className={cn(
-					'flex-shrink-0 relative h-12 flex flex-row flex-nowrap justify-center items-center bg-center bg-no-repeat bg-contain',
+					'flex-shrink-0 relative h-12 flex flex-row flex-nowrap justify-center items-center bg-left-top bg-no-repeat bg-contain',
 					{ 'w-12': size === 'small' },
 					{ 'w-28': size === 'large' }
 				)}

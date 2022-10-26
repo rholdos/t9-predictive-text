@@ -8,9 +8,9 @@ For example, given the input 23 the output should be: ad, ae, af, bd, be, bf, cd
 The frontend should allow the user to enter a number, query the backend for the corresponding expansions, and display them.
 
 The solution should be shared with us in a git repository with real history included.
+
 It's OK not to deliver 100%, but the more working parts the better.
 For example if you struggle with the backend, focus on frontend and just mock the API calls.
-
 Take this task as a chance to present your skills.
 If you are good in UI, let us see that.
 If you are more into the backend, it's OK to have simple FE.
@@ -19,5 +19,5 @@ If you know what tests are for, don't keep it for yourself, show it in the code.
 Ways to go beyond the minimal solution could include for example:
 - great project setup
 - phone keyboard-like UI
-- mobile app in React Native
 - filtering to include only real words based on a suitable word list
+- mobile app in React Native
