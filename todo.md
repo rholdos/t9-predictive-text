@@ -4,6 +4,7 @@ MUST HAVE
 - add animation for header - fly in from top
 - add animation for legend - fly in from side
 - add animation for opening app - scale animation - on start , and keyboard fly in from bottom
+- turn off eslint warning about imports
 
 MAYBE
 - add CLEAR button to clear both input and output

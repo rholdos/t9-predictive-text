@@ -4,37 +4,45 @@ import Keypad from 'components/Keypad'
 import Legend from 'components/Legend'
 import Phone from 'components/Phone'
 import Suggestions from 'components/Suggestions'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const App = () => {
-	const [input, setInput] = useState('')
-	const [output, setOutput] = useState('')
-
-	const suggestedWords = ['den', 'debora', 'debounce', 'deno', 'dinosaur', 'doggo', 'doberman']
-
-	const handleAcceptWord = (value: string) => {
-		setOutput(output.length === 0 ? value : `${output} ${value}`)
-	}
+	const [input, setInput] = useState<string>('')
+	const [output, setOutput] = useState<string>('')
+	const [suggestions, setSuggestions] = useState<string[]>([])
 
 	const handleInputChange = (value: string) => {
 		setInput(value)
 		if (value.endsWith('1')) setOutput(`${output} `)
 	}
 
+	const handleClear = () => {
+		setInput('')
+		setOutput('')
+	}
+
+	const handleAcceptWord = (value: string) => {
+		setOutput(output.length === 0 ? value : `${output} ${value}`)
+	}
+
+	useEffect(() => {
+		setSuggestions(['den', 'debora', 'debounce', 'deno', 'dinosaur', 'doggo', 'doberman', 'doberman', 'doberman', 'doberman'])
+	}, [])
+
 	return (
 		<>
 			<Header />
-			<main className='max-w-[1200px] flex flex-row flex-nowrap justify-evenly items-center gap-8 mx-auto'>
-				<Legend />
+			<main className='max-w-[1200px] flex flex-row flex-wrap justify-evenly items-center gap-8 my-16 mx-auto'>
 				<Phone
-					content={<Display input={input} output={output} />}
+					content={<Display input={input} output={output} onClear={handleClear} />}
 					keyboard={
 						<>
-							<Suggestions words={suggestedWords} onAcceptWord={handleAcceptWord} />
+							<Suggestions words={suggestions} onAcceptWord={handleAcceptWord} />
 							<Keypad input={input} onInputChange={handleInputChange} />
 						</>
 					}
 				/>
+				<Legend />
 			</main>
 		</>
 	)

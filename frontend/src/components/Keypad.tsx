@@ -1,6 +1,7 @@
 import { ReactComponent as AsteriskIcon } from 'assets/icons/asterisk.svg'
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete.svg'
 import { ReactComponent as SpacebarIcon } from 'assets/icons/spacebar.svg'
+import cn from 'classnames'
 import { useCallback, useEffect } from 'react'
 
 interface IKeypad {
@@ -48,19 +49,20 @@ const Keypad = ({ input, onInputChange }: IKeypad) => {
 	}, [input, handleAddDigit, handleDeleteDigit])
 
 	return (
-		<div className={'grid grid-rows-4 grid-cols-3 gap-4'}>
+		<div className={'grid grid-rows-4 grid-cols-3 gap-1'}>
 			{keypadButtons.map(({ digit, text, disabled }, index) => (
 				<button
 					key={`keypad-button-${index}`}
 					type='button'
 					disabled={disabled}
-					onClick={() =>
-						index === keypadButtons.length - 1 ? handleDeleteDigit() : handleAddDigit(digit as string)
-					}
-					className='inline-flex flex-row flex-nowrap justify-center items-baseline gap-2 text-gray-100 bg-gray-900 p-4 rounded-xl'
+					onClick={() => (index === keypadButtons.length - 1 ? handleDeleteDigit() : handleAddDigit(digit as string))}
+					className={cn(
+						{ 'inline-flex flex-row flex-nowrap justify-center items-baseline gap-1.5 text-gray-100 bg-gray-700 p-3 rounded-lg': true },
+						{ 'transition-colors hover:bg-gray-600 focus:bg-gray-600 focus:outline-none': !disabled }
+					)}
 				>
-					{digit && <span className='text-4xl leading-none pointer-events-none'>{digit}</span>}
-					{text && <span className='text-xl leading-none pointer-events-none'>{text}</span>}
+					{digit && <span className='text-xl leading-none pointer-events-none'>{digit}</span>}
+					{text && <span className='text-sm leading-none pointer-events-none'>{text}</span>}
 				</button>
 			))}
 		</div>

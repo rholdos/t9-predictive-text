@@ -12,26 +12,21 @@ const Legend = () => {
 			<button
 				type='button'
 				className={cn(
-					'relative h-12 flex flex-row flex-nowrap justify-center items-center',
+					'flex-shrink-0 relative h-12 flex flex-row flex-nowrap justify-center items-center bg-center bg-no-repeat bg-contain',
 					{ 'w-12': size === 'small' },
 					{ 'w-28': size === 'large' }
 				)}
-				style={{
-					backgroundImage: `url('${size === 'large' ? keyboardButtonLargeImage : keyboardButtonSmallImage}')`,
-					backgroundSize: 'contain'
-				}}
+				style={{ backgroundImage: `url('${size === 'large' ? keyboardButtonLargeImage : keyboardButtonSmallImage}')` }}
 				disabled={true}
 			>
-				<span className={cn('text-md text-gray-900', { 'text-lg': typeof btnText === 'number' })}>
-					{btnText}
-				</span>
+				<span className={cn('text-md text-gray-900', { 'text-lg': typeof btnText === 'number' })}>{btnText}</span>
 			</button>
-			{text && <span className='text-md text-gray-100'>{text}</span>}
+			{text && <span className='text-md leading-5 text-gray-100'>{text}</span>}
 		</div>
 	)
 
 	return (
-		<div className='bg-gray-100/25 backdrop-blur-sm p-6 rounded-2xl'>
+		<div className='sm:order-first relative w-[380px] h-auto bg-gray-100/25 backdrop-blur-md p-6 rounded-2xl animate-legend'>
 			<h3 className='text-center text-md leading-none text-gray-100'>Keyboard controls</h3>
 			<hr className='border-gray-100/25 my-4 -mx-2' />
 			<ul className='flex flex-col flex-nowrap justify-start items-start gap-2'>
@@ -53,6 +48,10 @@ const Legend = () => {
 					<KeyButton size='large' btnText='Space' text='Insert suggestion' />
 				</li>
 			</ul>
+			<div className='animate-legendText'>
+				<hr className='border-gray-100/25 my-4 -mx-2' />
+				<h3 className='text-center text-sm leading-none text-gray-100'>Or interact with mouse / cursor</h3>
+			</div>
 		</div>
 	)
 }
