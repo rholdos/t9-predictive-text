@@ -1,6 +1,6 @@
 import cors from 'cors'
 import express, { Express, json, Request, Response } from 'express'
-import parseDictionary from 'lib/parseDictionary'
+import parseDictionary from 'lib/parse-dictionary'
 
 const PORT = 3000
 
@@ -18,14 +18,18 @@ app.post('/', (req: Request, res: Response) => {
 
 	if (typeof input === 'string' && input.length > 1) {
 		// const output = window.dictionary.getSuggestions(input, 5)
-
 		res.status(200).send({
 			output: input
 		})
 	}
 })
 
-app.listen(PORT, () => {
-	parseDictionary()
-	console.log(`\nServer is up and running at http://localhost:${PORT}`)
+app.listen(PORT, async () => {
+	console.log(`\n`)
+	console.log(`Server is up and running at http://localhost:${PORT}`)
+	console.log(`\n`)
+
+	const dictionaryTrie = await parseDictionary()
+
+	console.log(`Results: ${dictionaryTrie.getSuggestions('223', 5)}`)
 })
