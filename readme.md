@@ -19,7 +19,7 @@ $ npm start
 - Node.js server should start on http://localhost:3000
 	- assuming the port is free
 
-	<br>
+<br>
 
 - React SPA should start on http://127.0.0.1:8000/
 	- and automatically opened in default browser
