@@ -8,16 +8,10 @@ const parseDictionary = async () => {
 
 	try {
 		const rl = createInterface({
-			input: createReadStream('src/assets/freq-dictionary.txt'),
+			input: createReadStream('src/assets/dictionary-en.txt'),
 			crlfDelay: Infinity
 		})
-		rl.on('line', (line) => {
-			const [frequency, phrase] = line.split('\t')
-			dictionaryTrie.insert({
-				frequency: parseInt(frequency),
-				phrase
-			})
-		})
+		rl.on('line', (line) => dictionaryTrie.insert(line))
 		await once(rl, 'close')
 	} catch (error) {
 		console.error('ERROR: Dictionary file processing failed')

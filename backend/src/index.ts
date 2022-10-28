@@ -25,11 +25,11 @@ app.post('/', (req: Request, res: Response) => {
 })
 
 app.listen(PORT, async () => {
-	console.log(`\n`)
 	console.log(`Server is up and running at http://localhost:${PORT}`)
-	console.log(`\n`)
 
 	const dictionaryTrie = await parseDictionary()
 
-	console.log(`Results: ${dictionaryTrie.getSuggestions('223', 5)}`)
+	console.log(`results : ${
+		dictionaryTrie.getSuggestions(dictionaryTrie, '2', 2)
+	}`)
 })

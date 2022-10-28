@@ -12,86 +12,81 @@ const T9Keys: { [key: string]: number } = {
 	w: 9, x: 9, y: 9, z: 9
 }
 
-interface IWord {
-	frequency: number
-	phrase: string
-}
-
 class Trie {
-	public children: { [key: number]: Trie }
-	public words: IWord[]
+	public words: string[]
+	public nodes: { [key: number]: Trie }
 
 	public constructor() {
-		this.children = {}
 		this.words = []
+		this.nodes = {}
 	}
 
-	insert(word: IWord) {
-		const traverseAddingNodes = (node: Trie) => {
-			Object.values(T9Keys).forEach((digit) => {
-				if (Object.prototype.hasOwnProperty.call(node.children, digit)) {
-					node = node.children[digit]
-				} else {
-					return
-				}
-			})
-			Object.values(T9Keys).forEach((digit) => {
-				node.children[digit] = new Trie()
-				node = node.children[digit]
-			})
-			console.log(node)
+	public insert(word: string) {
+		const nodeToAddWordTo = traverseNodes(this)
+		addWordToNode(nodeToAddWordTo, word)
+
+		function traverseNodes(node: Trie) {
+			let i = 0
+
+			// Traverse existing nodes
+			for (i; i < word.length; i++) {
+				const digit = T9Keys[word[i]]
+				if (Object.prototype.hasOwnProperty.call(node.nodes, digit)) {
+					node = node.nodes[digit]
+				} else break
+			}
+
+			// If reached end, continue and create new nodes
+			for (i; i < word.length; i++) {
+				const digit = T9Keys[word[i]]
+				node.nodes[digit] = new Trie()
+				node = node.nodes[digit]
+			}
+
 			return node
 		}
 
-		const insertWordIntoListByFrequency = (wordsList: IWord[], wordToInsert: IWord) => {
-			if (wordsList.length === 0) {
-				wordsList.push(wordToInsert)
-			} else {
-				let i = 0
-				while (i < wordsList.length) {
-					i++
-					const comparedFrequency = wordsList[i].frequency
-					const insertFrequency = wordToInsert.frequency
-					if (insertFrequency >= comparedFrequency) {
-						wordsList.splice(i, 0, wordToInsert)
-						return
-					}
-				}
-				wordsList.splice(i + 1, 0, wordToInsert)
-			}
+		function addWordToNode(node: Trie, word: string) {
+			node.words.push(word)
 		}
-
-		const nodeToInsertWordInto = traverseAddingNodes(this)
-		insertWordIntoListByFrequency(nodeToInsertWordInto.words, word)
 	}
 
-	getSuggestions(input: string, suggestionDepth: number) {
-		const getDeeperSuggestions = (root: Trie, maxDepth: number) => {
-			const deepResults: IWord[][] = []
+	public getSuggestions(node: Trie, input: string, suggestionDepth: number) {
+		let results: string[] = []
 
-			const traverse = (root: Trie, depth: number) => {
-				if (depth <= 0 || depth > maxDepth) return
-				if (depth > 0 && depth <= maxDepth) {
-					deepResults[depth - 1] = [...deepResults[depth - 1], ...root.words]
-				}
-				Object.values(root?.children).forEach((child) => traverse(child, depth + 1))
-			}
-
-			while (deepResults.length < maxDepth) deepResults.push([])
-			traverse(root, 0)
-
-			deepResults.map((result) => result.sort((a, b) => b.frequency - a.frequency))
-			deepResults.map((result) => result.map((word) => word.phrase))
-
-			return deepResults
+		// Traverse nodes according to user input and return the last one
+		for (let i = 0; i < input.length; i++) {
+			const digit = parseInt(input[i])
+			if (!Object.prototype.hasOwnProperty.call(node.nodes, digit)) break
+			node = node.nodes[digit]
 		}
 
-		let node: Trie = this
-		input.split('').forEach((digit) => (node = node?.children[parseInt(digit)]))
+		// Add all the words from found node to the results
+		results = results.concat(node.words)
 
-		const shallowResults = node?.words.map(({ phrase }) => phrase) || []
-		const deepResults = getDeeperSuggestions(node, suggestionDepth)
-		return suggestionDepth > 0 ? [...shallowResults, ...deepResults] : shallowResults
+		// If deeper results are required
+		// -> then: traverse down every possible branch from the point we previously arrived at, adding words to the results and stopping on specified depth
+		// -> else: return shallowResults
+		return suggestionDepth > 0 ? results.concat(getDeeperSuggestions(node, suggestionDepth)) : results
+
+		function getDeeperSuggestions(node: Trie, maxDepth: number) {
+			// suggestions is an array with (maxDepth) sub-arrays, Traverse function fills in with results
+			let suggestions: string[][] = []
+			while (suggestions.length < maxDepth) suggestions.push([])
+			traverse(node, 0)
+
+			// Sort words in each level individually by word length, put shorter words first
+			suggestions = suggestions.map((level) => level.sort((a, b) => b.length - a.length))
+
+			// suggestions is an array of arrays of words. Merge into 1 array and return
+			return suggestions.reduce((results, level) => results.concat(level), [])
+
+			function traverse(node: Trie, depth: number) {
+				if (depth !== 0 && depth <= maxDepth) suggestions[depth - 1] = suggestions[depth - 1].concat(node.words)
+				if (depth === maxDepth) return
+				for (const nodeKey in node.nodes) traverse(node.nodes[nodeKey], depth + 1)
+			}
+		}
 	}
 }
 
