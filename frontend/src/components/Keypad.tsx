@@ -4,27 +4,27 @@ import { ReactComponent as SpacebarIcon } from 'assets/icons/spacebar.svg'
 import cn from 'classnames'
 import { useCallback, useEffect } from 'react'
 
+const keypadButtons = [
+	{ digit: '1', text: <SpacebarIcon /> },
+	{ digit: '2', text: 'abc' },
+	{ digit: '3', text: 'def' },
+	{ digit: '4', text: 'ghi' },
+	{ digit: '5', text: 'jkl' },
+	{ digit: '6', text: 'mno' },
+	{ digit: '7', text: 'pqrs' },
+	{ digit: '8', text: 'tuv' },
+	{ digit: '9', text: 'wxyz' },
+	{ digit: <AsteriskIcon />, disabled: true },
+	{ digit: '0', disabled: true },
+	{ digit: <DeleteIcon /> }
+]
+
 interface IKeypad {
 	input: string
 	onInputChange: (value: string) => void
 }
 
 const Keypad = ({ input, onInputChange }: IKeypad) => {
-	const keypadButtons = [
-		{ digit: '1', text: <SpacebarIcon /> },
-		{ digit: '2', text: 'abc' },
-		{ digit: '3', text: 'def' },
-		{ digit: '4', text: 'ghi' },
-		{ digit: '5', text: 'jkl' },
-		{ digit: '6', text: 'mno' },
-		{ digit: '7', text: 'pqrs' },
-		{ digit: '8', text: 'tuv' },
-		{ digit: '9', text: 'wxyz' },
-		{ digit: <AsteriskIcon />, disabled: true },
-		{ digit: '0', disabled: true },
-		{ digit: <DeleteIcon /> }
-	]
-
 	const handleAddDigit = useCallback(
 		(digit: string) => {
 			onInputChange(input + digit)

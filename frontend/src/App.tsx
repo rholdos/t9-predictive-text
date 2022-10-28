@@ -5,7 +5,7 @@ import Legend from 'components/Legend'
 import Phone from 'components/Phone'
 import Suggestions from 'components/Suggestions'
 import axios from 'lib/axios'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const App = () => {
 	const [input, setInput] = useState<string>('')
@@ -13,31 +13,36 @@ const App = () => {
 	const [suggestions, setSuggestions] = useState<string[]>([])
 
 	const handleInputChange = (value: string) => {
-		setInput(value)
-		if (value.endsWith('1')) setOutput(`${output} `)
+		if (!value) {
+			setInput('')
+			setSuggestions([])
+		} else if (value.endsWith('1')) {
+			setOutput(`${output} `)
+		} else {
+			setInput(value)
+			fetchSuggestions(value)
+		}
+	}
+
+	const fetchSuggestions = async (input: string) => {
+		const response = await axios.post('/', { input: input })
+		const suggestions: string[] = response.data.suggestions
+		if (suggestions.length) {
+			setSuggestions(suggestions)
+		}
+	}
+
+	const handleInsertSuggestion = (value: string) => {
+		setOutput(output.length === 0 ? value : `${output} ${value}`)
+		setInput('')
+		setSuggestions([])
 	}
 
 	const handleClear = () => {
 		setInput('')
+		setSuggestions([])
 		setOutput('')
 	}
-
-	const handleAcceptWord = (value: string) => {
-		setOutput(output.length === 0 ? value : `${output} ${value}`)
-	}
-
-	const fetchT9Output = async (input: string) => {
-		const { data } = await axios.post('/', { input: input })
-		setOutput(data.output)
-	}
-
-	useEffect(() => {
-		fetchT9Output(input)
-	}, [input])
-
-	useEffect(() => {
-		setSuggestions(['den', 'debora', 'debounce', 'deno', 'dinosaur', 'doggo', 'doberman', 'doberman', 'doberman', 'doberman'])
-	}, [])
 
 	return (
 		<>
@@ -47,7 +52,7 @@ const App = () => {
 					content={<Display input={input} output={output} onClear={handleClear} />}
 					keyboard={
 						<>
-							<Suggestions words={suggestions} onAcceptWord={handleAcceptWord} />
+							<Suggestions words={suggestions} onWordClick={handleInsertSuggestion} />
 							<Keypad input={input} onInputChange={handleInputChange} />
 						</>
 					}

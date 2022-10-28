@@ -51,7 +51,8 @@ class Trie {
 		}
 	}
 
-	public getSuggestions(node: Trie, input: string, suggestionDepth: number) {
+	public getSuggestions(input: string, suggestionDepth: number) {
+		let node: Trie = this
 		let results: string[] = []
 
 		// Traverse nodes according to user input and return the last one

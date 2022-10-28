@@ -45,7 +45,7 @@ const Legend = () => {
 					<KeyButton size='small' btnText={<ArrowRightIcon />} text='Navigate between suggestions' />
 				</li>
 				<li>
-					<KeyButton size='large' btnText='Space' text='Insert suggestion' />
+					<KeyButton size='large' btnText='Enter' text='Insert suggestion' />
 				</li>
 			</ul>
 			<div className='animate-legendText'>

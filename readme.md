@@ -1,4 +1,36 @@
-# Fullstack JS Homework
+# Kiwi.com - Fullstack JS Homework
+
+## Getting started
+
+<br>
+
+```js
+// Run the commands in root directory
+
+$ npm install
+
+// then
+
+$ npm start
+```
+
+<br>
+
+- Node.js server should start on http://localhost:3000
+	- assuming the port is free
+
+	<br>
+
+- React SPA should start on http://127.0.0.1:8000/
+	- and automatically opened in default browser
+
+<br>
+
+-----
+
+## Assignment
+
+<br>
 
 Implement a number to word list converter as a Node backend and React fronted.
 

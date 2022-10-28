@@ -13,14 +13,14 @@ const Display = ({ input, output, onClear }: IDisplay) => {
 			{/* Intro message */}
 			<div
 				className={cn(
-					{ 'self-start relative w-[35%] ml-1': true },
+					{ 'self-start relative ml-1': true },
 					{ 'before:absolute before:z-10 before:bottom-1.5 before:-left-1 before:w-4 before:h-4 before:bg-primary before:rounded-br-2xl': true },
 					{ 'after:absolute after:z-10 after:bottom-1.5 after:-left-2 after:w-2 after:h-4 after:bg-gray-900 after:rounded-br-2xl': true },
 					{ 'animate-introMessage': true }
 				)}
 			>
 				<textarea
-					value={'Start typing ...'}
+					value='Hi there! Start typing …'
 					rows={1}
 					disabled
 					className='w-full text-sm text-gray-900 bg-primary pl-4 pr-2 py-1.5 rounded-2xl resize-none'
@@ -43,11 +43,21 @@ const Display = ({ input, output, onClear }: IDisplay) => {
 				<button
 					onClick={onClear}
 					className={cn(
-						{ 'flex-shrink-0 inline-flex text-lg text-gray-900 bg-primary p-2 rounded-full': true },
+						{ 'group relative flex-shrink-0 inline-flex text-lg text-gray-900 bg-primary p-2 rounded-full': true },
 						{ 'transition-colors hover:bg-primary-light focus:bg-primary-light focus:outline-none': true }
 					)}
 				>
 					<DeleteIcon className='-translate-x-px' />
+					<span
+						className={cn(
+							{ 'absolute top-0 right-0 text-sm whitespace-nowrap text-gray-200 bg-primary/50 px-4 py-1 rounded-xl pointer-events-none': true },
+							{ 'after:absolute after:top-full after:left:1/2 after:w-0 after:h-0 after:-ml-1': true },
+							{ 'after:border-4 after:border-transparent after:border-t-primary/50': true },
+							{ 'transition ease-in duration-200 -translate-y-8 opacity-0 group-hover:-translate-y-9 group-hover:opacity-100': true }
+						)}
+					>
+						Clear all fields
+					</span>
 				</button>
 			</div>
 		</>

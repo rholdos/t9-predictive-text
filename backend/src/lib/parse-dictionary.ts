@@ -1,24 +1,23 @@
 import { once } from 'node:events'
-import { createReadStream } from 'node:fs'
+import { createReadStream, existsSync } from 'node:fs'
 import { createInterface } from 'node:readline'
 import Trie from './trie'
 
-const parseDictionary = async () => {
+const parseDictionaryFileIntoTrie = async (filePath: string) => {
 	const dictionaryTrie = new Trie()
 
-	try {
-		const rl = createInterface({
-			input: createReadStream('src/assets/dictionary-en.txt'),
-			crlfDelay: Infinity
-		})
-		rl.on('line', (line) => dictionaryTrie.insert(line))
-		await once(rl, 'close')
-	} catch (error) {
-		console.error('ERROR: Dictionary file processing failed')
-		console.error(error)
-	}
+	if (!existsSync(filePath)) throw new Error('Dictionary file not found')
+
+	const rl = createInterface({
+		input: createReadStream(filePath),
+		crlfDelay: Infinity
+	})
+
+	rl.on('line', (line) => dictionaryTrie.insert(line))
+
+	await once(rl, 'close')
 
 	return dictionaryTrie
 }
 
-export default parseDictionary
+export default parseDictionaryFileIntoTrie

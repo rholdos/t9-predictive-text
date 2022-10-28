@@ -1,35 +1,39 @@
 import cors from 'cors'
 import express, { Express, json, Request, Response } from 'express'
-import parseDictionary from 'lib/parse-dictionary'
+import parseDictionaryFileIntoTrie from 'lib/parse-dictionary'
 
 const PORT = 3000
+const DICTIONARY_FILE = 'src/assets/dictionary-en.txt'
+const SUGGESTIONS_DEPTH = 25
+const MAX_SUGGESTIONS = 25
 
 const app: Express = express()
 
-app.use(json())
 app.use(cors({ origin: ['http://localhost:8000', 'http://127.0.0.1:8000'] }))
-
-app.get('/', (req: Request, res: Response) => {
-	res.status(200).send('Express server')
-})
+app.use(json())
 
 app.post('/', (req: Request, res: Response) => {
+	req.setTimeout(10000)
+
 	const { input } = req.body
 
-	if (typeof input === 'string' && input.length > 1) {
-		// const output = window.dictionary.getSuggestions(input, 5)
-		res.status(200).send({
-			output: input
-		})
+	if (!input) {
+		return res.status(500).send({ error: 'Input not provided' })
+	}
+
+	if (typeof input !== 'string') {
+		return res.status(500).send({ error: "Input must be type of 'string'" })
+	}
+
+	try {
+		const suggestions: string[] = app.get('dictionaryTrie').getSuggestions(input, SUGGESTIONS_DEPTH)
+		return res.status(200).send({ suggestions: suggestions.slice(0, MAX_SUGGESTIONS) })
+	} catch (error) {
+		return res.status(500).send({ error: error })
 	}
 })
 
 app.listen(PORT, async () => {
-	console.log(`Server is up and running at http://localhost:${PORT}`)
-
-	const dictionaryTrie = await parseDictionary()
-
-	console.log(`results : ${
-		dictionaryTrie.getSuggestions(dictionaryTrie, '2', 2)
-	}`)
+	app.set('dictionaryTrie', await parseDictionaryFileIntoTrie(DICTIONARY_FILE))
+	console.log(`\nServer is up and running at http://localhost:${PORT}\n`)
 })
