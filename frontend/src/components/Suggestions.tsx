@@ -3,14 +3,14 @@ import { useEffect, useRef } from 'react'
 
 interface ISuggestions {
 	words: string[]
-	onWordClick: (value: string) => void
+	handleInsertSuggestion: (value: string) => void
 }
 
-const Suggestions = ({ words, onWordClick }: ISuggestions) => {
+const Suggestions = ({ words, handleInsertSuggestion }: ISuggestions) => {
 	const component = useRef<HTMLDivElement>(null)
 
 	const handleClick = (word: string) => {
-		onWordClick(word)
+		handleInsertSuggestion(word)
 	}
 
 	useEffect(() => {

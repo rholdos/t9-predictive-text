@@ -9,6 +9,7 @@ import { useState } from 'react'
 
 const App = () => {
 	const [input, setInput] = useState<string>('')
+	const [inputLetter, setInputLetter] = useState<string | undefined>(undefined)
 	const [output, setOutput] = useState<string>('')
 	const [suggestions, setSuggestions] = useState<string[]>([])
 
@@ -16,12 +17,19 @@ const App = () => {
 		if (!value) {
 			setInput('')
 			setSuggestions([])
-		} else if (value.endsWith('1')) {
-			setOutput(`${output} `)
+			setOutput(`${output.trim()} `)
 		} else {
 			setInput(value)
 			fetchSuggestions(value)
 		}
+	}
+
+	const handleInputLetterChange = (value?: string) => {
+		setInputLetter(value || undefined)
+	}
+
+	const handleOutputChange = (value: string) => {
+		setOutput(value)
 	}
 
 	const fetchSuggestions = async (input: string) => {
@@ -32,9 +40,18 @@ const App = () => {
 		}
 	}
 
-	const handleInsertSuggestion = (value: string) => {
-		setOutput(output.length === 0 ? value : `${output} ${value}`)
+	const handleInsertSuggestion = (suggestedWord: string) => {
+		const words = output.split(' ')
+
+		let newOutput = ''
+		words.forEach((word, index) => (newOutput += `${index === words.length - 1 ? suggestedWord : word} `))
+
 		setInput('')
+		setSuggestions([])
+		setOutput(newOutput)
+	}
+
+	const handleClearSuggestions = () => {
 		setSuggestions([])
 	}
 
@@ -49,11 +66,18 @@ const App = () => {
 			<Header />
 			<main className='max-w-[1200px] flex flex-row flex-wrap justify-evenly items-center gap-8 my-16 mx-auto'>
 				<Phone
-					content={<Display input={input} output={output} onClear={handleClear} />}
+					content={<Display input={input} inputLetter={inputLetter} output={output} handleClear={handleClear} />}
 					keyboard={
 						<>
-							<Suggestions words={suggestions} onWordClick={handleInsertSuggestion} />
-							<Keypad input={input} onInputChange={handleInputChange} />
+							<Suggestions words={suggestions} handleInsertSuggestion={handleInsertSuggestion} />
+							<Keypad
+								input={input}
+								output={output}
+								handleInputChange={handleInputChange}
+								handleInputLetterChange={handleInputLetterChange}
+								handleOutputChange={handleOutputChange}
+								handleClearSuggestions={handleClearSuggestions}
+							/>
 						</>
 					}
 				/>

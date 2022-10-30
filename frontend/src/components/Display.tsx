@@ -3,11 +3,12 @@ import { ReactComponent as DeleteIcon } from 'assets/icons/delete.svg'
 
 interface IDisplay {
 	input: string
+	inputLetter?: string
 	output: string
-	onClear: () => void
+	handleClear: () => void
 }
 
-const Display = ({ input, output, onClear }: IDisplay) => {
+const Display = ({ input, inputLetter, output, handleClear }: IDisplay) => {
 	return (
 		<>
 			{/* Intro message */}
@@ -36,12 +37,22 @@ const Display = ({ input, output, onClear }: IDisplay) => {
 				)}
 			>
 				<textarea value={output} rows={7} disabled className='w-full text-sm text-gray-100 bg-gray-700 pl-3 pr-4 py-2 rounded-2xl resize-none' />
+				<span
+					className={cn(
+						{ 'absolute z-10 bottom-4 right-4 text-2xl text-gray-100': true },
+						{ 'transition ease-out duration-50': true },
+						{ 'translate-y-4 opacity-0': !inputLetter },
+						{ 'translate-y-0 opacity-100': inputLetter }
+					)}
+				>
+					{inputLetter}
+				</span>
 			</div>
 			{/* Input */}
 			<div className='flex flex-row flex-nowrap items-center gap-2 mt-auto'>
 				<textarea value={input} rows={1} disabled className='flex-grow text-gray-100 bg-gray-700 py-1.5 px-3 rounded-2xl resize-none' />
 				<button
-					onClick={onClear}
+					onClick={handleClear}
 					className={cn(
 						{ 'group relative flex-shrink-0 inline-flex text-lg text-gray-900 bg-primary p-2 rounded-full': true },
 						{ 'transition-colors hover:bg-primary-light focus:bg-primary-light focus:outline-none': true }

@@ -4,7 +4,7 @@ import parseDictionaryFileIntoTrie from 'lib/parse-dictionary'
 
 const PORT = 3000
 const DICTIONARY_FILE = 'src/assets/dictionary-en.txt'
-const SUGGESTIONS_DEPTH = 25
+const SUGGESTIONS_DEPTH = 5
 const MAX_SUGGESTIONS = 25
 
 const app: Express = express()

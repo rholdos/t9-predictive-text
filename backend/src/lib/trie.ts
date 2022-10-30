@@ -72,12 +72,9 @@ class Trie {
 
 		function getDeeperSuggestions(node: Trie, maxDepth: number) {
 			// suggestions is an array with (maxDepth) sub-arrays, Traverse function fills in with results
-			let suggestions: string[][] = []
+			const suggestions: string[][] = []
 			while (suggestions.length < maxDepth) suggestions.push([])
 			traverse(node, 0)
-
-			// Sort words in each level individually by word length, put shorter words first
-			suggestions = suggestions.map((level) => level.sort((a, b) => b.length - a.length))
 
 			// suggestions is an array of arrays of words. Merge into 1 array and return
 			return suggestions.reduce((results, level) => results.concat(level), [])
