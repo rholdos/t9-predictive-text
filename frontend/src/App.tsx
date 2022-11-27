@@ -1,5 +1,4 @@
 import Display from 'components/Display'
-import Header from 'components/Header'
 import Keypad from 'components/Keypad'
 import Legend from 'components/Legend'
 import Phone from 'components/Phone'
@@ -62,28 +61,25 @@ const App = () => {
 	}
 
 	return (
-		<>
-			<Header />
-			<main className='max-w-[1200px] flex flex-row flex-wrap justify-evenly items-center gap-8 my-16 mx-auto'>
-				<Phone
-					content={<Display input={input} inputLetter={inputLetter} output={output} handleClear={handleClear} />}
-					keyboard={
-						<>
-							<Suggestions words={suggestions} handleInsertSuggestion={handleInsertSuggestion} />
-							<Keypad
-								input={input}
-								output={output}
-								handleInputChange={handleInputChange}
-								handleInputLetterChange={handleInputLetterChange}
-								handleOutputChange={handleOutputChange}
-								handleClearSuggestions={handleClearSuggestions}
-							/>
-						</>
-					}
-				/>
-				<Legend />
-			</main>
-		</>
+		<main className='w-full max-w-[1200px] h-full flex flex-row flex-wrap justify-evenly items-center gap-8 mx-auto'>
+			<Phone
+				content={<Display input={input} inputLetter={inputLetter} output={output} handleClear={handleClear} />}
+				keyboard={
+					<>
+						<Suggestions words={suggestions} handleInsertSuggestion={handleInsertSuggestion} />
+						<Keypad
+							input={input}
+							output={output}
+							handleInputChange={handleInputChange}
+							handleInputLetterChange={handleInputLetterChange}
+							handleOutputChange={handleOutputChange}
+							handleClearSuggestions={handleClearSuggestions}
+						/>
+					</>
+				}
+			/>
+			<Legend />
+		</main>
 	)
 }
 
