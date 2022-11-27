@@ -1,5 +1,18 @@
 # T9 Predictive text
 
+<br>
+
+### Overview
+
+- Solution implements [T9 Algorithm](https://en.wikipedia.org/wiki/T9_(predictive_text)) and [Trie data structure](https://stackfull.dev/trie-in-javascript-the-data-structure-behind-autocomplete)
+- [ReactJS](https://reactjs.org/) SPA on frontend
+- [NodeJS](https://nodejs.org/en/about/) on backend
+- Bundled with [Vite](https://vitejs.dev/)
+
+An app that simulates a modern-looking phone with an old 3×4 numeric keypad. User can interact with the keypad by using mouse or keyboard. Numeric input is sent to and processed on the NodeJS server, which uses a Trie populated with dictionary words. The server then traverses the Trie and finds the best matching words for given numeric input. The result is predictive text suggestions sent to the frontend and the user can compose a message with these suggestions.
+
+<br>
+
 ### Getting started
 
 ```js
@@ -20,7 +33,7 @@ $ npm start
 
 Implement a number to word list converter as a Node backend and React fronted.
 
-The backend should provide a rest endpoint that converts a given numeric string into a list of corresponding words in the style of [T9](https://en.wikipedia.org/wiki/T9_(predictive_text)) or [Phonewords](https://en.wikipedia.org/wiki/Phoneword).
+The backend should provide a rest endpoint that converts a given numeric string into a list of corresponding words in the style of [T9](https://en.wikipedia.org/wiki/T9_(predictive_text)).
 
 For example, given the input 23 the output should be: ad, ae, af, bd, be, bf, cd, ce, cf
 The frontend should allow the user to enter a number, query the backend for the corresponding expansions, and display them.

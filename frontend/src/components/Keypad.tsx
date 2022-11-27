@@ -68,6 +68,7 @@ const Keypad = ({ input, output, handleInputChange, handleInputLetterChange, han
 	const handleAddDigit = useCallback(
 		(key: typeof pressedKey) => {
 			if (!key) return
+			setPressedKey(undefined)
 			setLastPressedKey(undefined)
 			handleInputLetterChange(undefined)
 			handleInputChange(input + key.digit)
